@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+{# url_for第二种用法，这里指定CSS文件，需要传两个参数，第一个static，第二个需要指明filename #}
+    <link rel="stylesheet" href="{{ url_for("static",filename="site.css") }}">
+</head>
+<body>
+<h3>hello flask!</h3>
+<!--加入两个链接，跳转nav标签一般指定导航链接-->
+<nav>
+    <!--设置链接，url_for函数用来指定路由方法名，表示跳转到该方法-->
+    <a href="{{url_for(".services") }}">services</a>
+    <a href="{{ url_for(".about") }}">About</a>
+</nav>
+</body>
+</html>
