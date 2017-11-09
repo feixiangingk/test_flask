@@ -6,10 +6,12 @@
 </head>
 <body>
 <h3>HTTP method：{{ method }}</h3>
-<form  class="action" method="POST">
-    <div><input type="text" placeholder="username"></div>
+<form  method="POST">
+    <div><input type="text" name="username" placeholder="username" >
+    </div>
 
-    <div><input type="text" placeholder="password"></div>
+    <div><input type="text" name="password" placeholder="password" >
+    </div>
     <div><input type="submit"></div>
 </form>
 </body>
