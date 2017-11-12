@@ -14,6 +14,10 @@ from werkzeug.utils import secure_filename
 #想要指定的URL匹配正则表达式，需用引用
 from werkzeug.routing import BaseConverter
 
+# Flask-Script==2.0.5
+# livereload==2.3.2   这两个包用于热加载，调试
+from flask.ext.script import Manager
+
 # from flask.ext.
 
 class RegexConverter(BaseConverter):
@@ -23,6 +27,10 @@ class RegexConverter(BaseConverter):
 
 
 app = Flask(__name__)
+#要使用热加载功能，必须把debug开关打开
+app.config['DEBUG']=True
+manager=Manager(app)
+
 
 #使用正则表达式转换器
 app.url_map.converters["regex"]=RegexConverter
@@ -94,6 +102,18 @@ def upload():
 def page_not_fond(error):
     return render_template("404.html"),404
 
+#用下面的方法实现热加载,要实现热加载，就必须用Python test_flask.py dev 启动
+@manager.command
+def dev():
+    from livereload import Server
+    live_server=Server(app.wsgi_app)
+    #监控文件变化参数是目录e.g:监控static文件夹  static/*.*
+    live_server.watch("**/*.*") #监控整个项目
+    live_server.serve(open_url=True)
+
 if __name__ == '__main__':
     #调试模式
-    app.run(debug=True)
+    # app.run(debug=True)
+    manager.run()  #使用这种方式启动必须在命令行输入 Python test_flask.py runserver
+
+
