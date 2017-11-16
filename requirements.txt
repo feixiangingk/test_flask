@@ -18,7 +18,7 @@ pbr==3.1.1
 pycrypto==2.6.1
 PyYAML==3.12
 requests==2.18.4
-selenium==3.6.0
+selenium==3.5.0
 six==1.11.0
 suds==0.4
 urllib3==1.22
