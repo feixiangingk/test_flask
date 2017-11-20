@@ -5,15 +5,35 @@
 # anthor:      ZT@gufan
 
 from flask import Flask
-from flask.ext.sqlalchemy import SQLAlchemy
+# from flask.ext.sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 import os
-basedir=os.path.abspath(os.path.dirname(__file__))
-app=Flask(__name__)
+# from flask.ext.script import Manager
+from flask_script import Manager
 
-app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///'+os.path.join(basedir,'data.sqlite')
-print app.config['SQLALCHEMY_DATABASE_URI']
+db=SQLAlchemy()
 
-app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']=True
-db=SQLAlchemy(app)
+def create_app():
+    basedir=os.path.abspath(os.path.dirname(__file__))
+    app=Flask(__name__)
 
-app.run(debug=True)
+    app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///'+os.path.join(basedir,'data.sqlite')
+    # app.config['SQLALCHEMY_DATABASE_URI']='sqlite:////'+"E:\\SyncWorkSpace\\test_flask\\data.sqlite"
+    print app.config['SQLALCHEMY_DATABASE_URI']
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=True
+    app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN']=True
+    # manager=Manager(app)
+    # >>>from test_SQLAlchemy import db
+    # >>>db.create_all()
+    # 这步完成以后，就生成了一个data.sqlite文件
+    # db.create_all()
+    db.init_app(app)
+    return app
+
+
+
+
+if __name__=="__main__":
+    # manager.run()
+    app=create_app()
+    app.run(debug=True)
