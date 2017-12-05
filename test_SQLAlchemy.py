@@ -34,6 +34,8 @@ def create_app():
 
 
 if __name__=="__main__":
-    # manager.run()
+
     app=create_app()
-    app.run(debug=True)
+    manager=Manager(app)
+    manager.run()
+    # app.run(debug=True)
