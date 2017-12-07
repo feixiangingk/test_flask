@@ -7,13 +7,19 @@
     <link rel="stylesheet" href="{{ url_for("static",filename="site.css") }}">
 </head>
 <body>
+
 <h3>hello flask!</h3>
 <!--加入两个链接，跳转nav标签一般指定导航链接-->
+<p>{{ title|safe}}</p>
+{{ testMD |md|safe}}
+
+<!--这里的read_md是函数，是自定义的函数-->
+{{ read_md("README.md")|md|safe }}
 <nav>
     <!--设置链接，url_for函数用来指定路由方法名，表示跳转到该方法-->
     <a href="{{url_for(".services") }}">services</a>
     <a href="{{ url_for(".about") }}">About</a>
 </nav>
-<h4>热加载2</h4>
+<h4>热加载19</h4>
 </body>
 </html>

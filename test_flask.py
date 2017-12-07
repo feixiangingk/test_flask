@@ -16,9 +16,9 @@ from werkzeug.routing import BaseConverter
 
 # Flask-Script==2.0.5
 # livereload==2.3.2   这两个包用于热加载，调试
-from flask.ext.script import Manager
+# from flask.ext.script import Manager
+from flask_script import Manager
 
-# from flask.ext.
 
 class RegexConverter(BaseConverter):
     def __init__(self,url_map,*items):
@@ -35,10 +35,26 @@ manager=Manager(app)
 #使用正则表达式转换器
 app.url_map.converters["regex"]=RegexConverter
 
+#自定义过滤器
+@app.template_filter("md")
+def markdown_to_html(txt):
+    from markdown import markdown
+    return markdown(txt)
+
 @app.route('/')
 def hello_world():
     # request.cookies['']
-    return render_template("index.html",title="lesson3")
+    return render_template("index.html",title="<h3>hello world</h3>",testMD="## header2")
+
+def read_md(filename):
+    with open(filename) as md_file:
+        context=reduce(lambda x,y:x+y,md_file.readlines())
+        return context.decode("utf-8")
+
+#注册方法，注册以后模板可以调用方法
+@app.context_processor
+def inject_methods():
+    return dict(read_md=read_md)
 
 @app.route('/services')
 def services():
