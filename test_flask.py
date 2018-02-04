@@ -41,8 +41,9 @@ def markdown_to_html(txt):
     from markdown import markdown
     return markdown(txt)
 
+
 @app.route('/')
-def hello_world():
+def index():
     # request.cookies['']
     return render_template("index.html",title="<h3>hello world</h3>",testMD="## header2")
 

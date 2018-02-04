@@ -10,16 +10,49 @@
 
 <h3>hello flask!</h3>
 <!--加入两个链接，跳转nav标签一般指定导航链接-->
-<p>{{ title|safe}}</p>
-{{ testMD |md|safe}}
+<p>{{ title | safe}}</p>
+{#{{ testMD |md|safe}}#}
 
 <!--这里的read_md是函数，是自定义的函数-->
-{{ read_md("README.md")|md|safe }}
+{#{{ read_md("README.md")|md|safe }}#}
 <nav>
     <!--设置链接，url_for函数用来指定路由方法名，表示跳转到该方法-->
     <a href="{{url_for(".services") }}">services</a>
     <a href="{{ url_for(".about") }}">About</a>
 </nav>
-<h4>热加载19</h4>
+<h4>热加载17</h4>
+
+
+{#with可以控制变量作用域，如果被with包围，变量links就无法显示#}
+{#{% with %}  #}
+
+
+{# jinja2中的赋值语法#}
+{% set links=[
+{'label':'Home','href':url_for('.index')},
+{'label':'Services','href':url_for('.services')},
+{'label':'About','href':url_for('.about')},
+{'label':'Test','href':url_for('.about')}
+] %}
+{#{% endwith %}#}
+
+{#{{ links }}#}
+<nav>
+    {% for link in links %}
+{#        jinjia2的if语句#}
+        {% if not loop.first %}|{% endif %}
+        {% if loop.index0 is  odd %} 测试函数odd {% endif %}
+        {% if link is current_url %}
+            <a href="#">current_url:{{ link.label }} </a>
+{#        循环输出link#}
+            {% else %}
+        <a href="{{ link.href }}">{{ link.label }} {{ loop.index0 }} {{ loop.index }} </a>
+        {% if  loop.last %}
+        <br><a>{{ loop.length }}</a>
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+</nav>
+<a href="{{ url_for('.index') }}">链接测试</a>
 </body>
 </html>
