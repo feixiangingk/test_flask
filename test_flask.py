@@ -41,9 +41,12 @@ def markdown_to_html(txt):
     from markdown import markdown
     return markdown(txt)
 
-
-@app.route('/')
-def index():
+@app.route('/',methods=["POST","GET"])
+def hello_world():
+    if request.method==["POST"]:
+        print request.form #打印post方法的dict
+    elif request.method==['GET']:
+        print request.args #打印get方法传递的参数  #../static/1.jpg 带特殊符号的可以识别
     # request.cookies['']
     return render_template("index.html",title="<h3>hello world</h3>",testMD="## header2")
 
