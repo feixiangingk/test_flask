@@ -9,11 +9,17 @@ from flask import current_app #程序上下文，当前激活程序的程序实�
 from flask import redirect,render_template
 
 app=create_app()
+#显式调用current_app  设置count属性，初始值=0
+with app.app_context():
+    current_app.count=0
+
+
 @app.route("/")
 def index():
     user_agent=request.headers.get("User-Agent")
     print current_app.name #显示test_SQLAlchemy因为程序实例化在该模块
-    current_app.count=1
+    current_app.count+=1
+    print current_app.count
     print app.url_map #url_map查看URL和视图函数之间的映射
     return '<p>your browser is {} </p>'.format(user_agent)
 
