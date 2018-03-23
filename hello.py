@@ -7,8 +7,8 @@ from flask import request
 from test_SQLAlchemy import create_app
 from flask import current_app #程序上下文，当前激活程序的程序实例
 from flask import redirect,render_template
-
 app=create_app()
+
 #显式调用current_app  设置count属性，初始值=0
 with app.app_context():
     current_app.count=0
@@ -45,4 +45,4 @@ def user(name):
     return render_template("user.html",name=name)
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run()
