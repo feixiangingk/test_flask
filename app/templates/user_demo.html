@@ -1,0 +1,16 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}Flask{% endblock %}
+
+{% block navbar %}
+    <a class="navbar-brand" href="/">Flask</a>
+    <a class="navbar-brand" href="/">Home</a>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Hello, {{ name }}</h1>
+        </div>
+    </div>
+{% endblock %}

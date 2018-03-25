@@ -11,7 +11,7 @@
 <h3>hello flask!</h3>
 <!--加入两个链接，跳转nav标签一般指定导航链接-->
 <p>{{ title | safe}}</p>
-{#{{ testMD |md|safe}}#}
+{{ testMD |md|safe}}
 
 <!--这里的read_md是函数，是自定义的函数-->
 {#{{ read_md("README.md")|md|safe }}#}
@@ -42,13 +42,13 @@
 {#        jinjia2的if语句#}
         {% if not loop.first %}|{% endif %}
         {% if loop.index0 is  odd %} 测试函数odd {% endif %}
-        {% if link is current_url %}
+        {% if link is current_url %} {# 这里是自定义的测试函数current_url #}
             <a href="#">current_url:{{ link.label }} </a>
 {#        循环输出link#}
             {% else %}
         <a href="{{ link.href }}">{{ link.label }} {{ loop.index0 }} {{ loop.index }} </a>
         {% if  loop.last %}
-        <br><a>{{ loop.length }}</a>
+        <a>{{ loop.length }}</a>
         {% endif %}
         {% endif %}
     {% endfor %}

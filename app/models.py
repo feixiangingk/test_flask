@@ -3,15 +3,14 @@
 # createtime:  2017/11/20  10:53
 # IDE:         PyCharm
 # anthor:      ZT@gufan
-from test_SQLAlchemy import create_app
 
-from flask_sqlalchemy import SQLAlchemy
-db=SQLAlchemy(create_app())
+from . import create_app,db
 
 class Role(db.Model):
     __tablename__="roles"
     id=db.Column(db.Integer,primary_key=True)
-    name=db.Column(db.String(64),index=True,unique=False)
+    name=db.Column(db.String(64),nullable=True,unique=False)
+    users=db.relationship("User",backref="role")
 
     def __repr__(self):
         return "<Role {}>".format(self.name)
@@ -19,7 +18,8 @@ class Role(db.Model):
 class User(db.Model):
     __tablename__="users"
     id=db.Column(db.Integer,primary_key=True)
-    username=db.Column(db.String(64),unique=False)
+    name=db.Column(db.String(64),unique=False,nullable=True)
+    password=db.Column(db.String(20),nullable=True)
     role_id=db.Column(db.Integer,db.ForeignKey("roles.id"))
 
     def __repr__(self):
@@ -37,5 +37,7 @@ def insert_Role():
     db.session.commit()
 
 if __name__=="__main__":
+    app = create_app()
+    db.init_app(app)
     insert_Role()
 
