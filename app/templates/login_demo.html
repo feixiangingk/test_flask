@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %} {# 使用wtf创建form #}
+{% block content %}
+    <div class="container ">
+<p class="h3">login</p>
+{#        <div class="col-sm-3">#}
+{#        {{ wtf.quick_form(form) }}#}
+{#            </div>#}
+    <form  method="post">
+    {{ form.username.label }}<br>
+    {{ form.username(class="input-sm", placeholder="用户名")  }}<br>
+    {{ form.pwd.label }}<br>
+    {{ form.pwd(class="input-sm", placeholder="密码") }}<br>
+    {{ form.submit() }}
+    </form>
+</div>
+{% endblock content %}

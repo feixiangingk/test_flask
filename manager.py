@@ -4,10 +4,34 @@
 # IDE:         PyCharm
 # anthor:      ZT@gufan
 
+from app import create_app
 from flask_script import Manager
-from test_SQLAlchemy import create_app
-app=create_app()
+from livereload import Server
+from flask_migrate import Migrate,MigrateCommand,upgrade #加入脚本处理db迁移插件
+from app.models import User, Role #这里一定要引入模型，不然脚本会检测不到DB变化
+
+app,db=create_app()
+
 manager=Manager(app)
+
+migrate=Migrate(app,db)
+manager.add_command("db",MigrateCommand)
+
+@manager.command
+def dev():
+    app.config.debug=True
+    live_server = Server(app.wsgi_app)
+    # 监控文件变化参数是目录e.g:监控static文件夹  static/*.*
+    live_server.watch("**/*.*")  # 监控整个项目
+    live_server.serve(open_url=True)
+
+@manager.command #加入命令  测试方法
+def test():
+    pass
+
+@manager.command #数据库初始化
+def deploy():
+    upgrade() #直接将upgrade命令绑定到deploy上
 
 if __name__=="__main__":
     #必须要此行，才能接受

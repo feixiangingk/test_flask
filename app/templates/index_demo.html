@@ -1,0 +1,50 @@
+
+{% extends 'base.html' %}
+{% import 'includes/_macro.html' as ui %} {# 导入宏 #}
+
+
+{% block title %}Index Demo{% endblock title %}  {# 重写base中的block ,可以在endblock后面加上名字以区分 #}
+
+
+{# jinja2中的赋值语法#}
+{#{% set links=[#}
+{#('index_demo',url_for('.index_demo')),#}
+{#('count',url_for('.count')),#}
+{#('Testredirect',url_for('.Testredirect')),#}
+{#('Test_index',url_for('.index')),#}
+{#('Bootstrap_demo',url_for('.bootstrap')),#}
+{#] %}#}
+
+{#{% block navbar %}#}
+{#    {% for label,url in links %}#}
+{#        <a class="navbar-brand navbar ansi-inverse" href="{{ url }}">{{ label }}  </a>#}
+{#    {% endfor %}#}
+{#{% endblock navbar %}#}
+
+{% block content %}
+<div class="container">
+<p class="h7">{{ self.title() }}</p>
+<a class="h6 text-danger"  href="{{ url_for('.index') }}">链接测试</a>
+   </div>
+
+
+  <div class="input-group-btn">
+    <!-- Buttons -->
+  </div>
+        <div class="container">
+            <p class="h4">用户名</p>
+  <input type="text"  style="width:160px;line-height:50px;" class="form-control padding-base-horizontal" >
+    </div>
+
+    <div class="container">
+    {{ ui.input("username") }} {# 使用宏 #}
+    {{ ui.input("pwd",type="password") }}
+    </div>
+
+
+
+{% endblock content%}
+
+{% block footer %} {# 如果不想完全重写 只是添加修改部分，可以使用supper()方法引用父模板 #}
+ {{super()}}
+{% endblock footer %}

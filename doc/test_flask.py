@@ -41,19 +41,24 @@ def markdown_to_html(txt):
     from markdown import markdown
     return markdown(txt)
 
+
 @app.route('/',methods=["POST","GET"])
-def hello_world():
+def index():
     if request.method==["POST"]:
         print request.form #打印post方法的dict
     elif request.method==['GET']:
         print request.args #打印get方法传递的参数  #../static/1.jpg 带特殊符号的可以识别
     # request.cookies['']
-    return render_template("index.html",title="<h3>hello world</h3>",testMD="## header2")
+    return render_template("index.html", title="<h3>hello world</h3>", testMD="## header2")
 
 def read_md(filename):
     with open(filename) as md_file:
         context=reduce(lambda x,y:x+y,md_file.readlines())
         return context.decode("utf-8")
+
+@app.template_test("current_url") #为测试函数命名current_url供jinja2调用
+def is_current_url(link):
+    return link['href']==request.path
 
 #注册方法，注册以后模板可以调用方法
 @app.context_processor
@@ -101,7 +106,7 @@ def login():
         print "GET",username,password
 
     #可以和HTML中form表单对应
-    return render_template("login.html",method=request.method)
+    return render_template("login.html", method=request.method)
 
 @app.route("/upload",methods=["GET","POST"])
 def upload():
@@ -120,7 +125,7 @@ def upload():
 #专门处理错误页的路由，需要指定错误码 使用该装饰器errorhandler
 @app.errorhandler(404)
 def page_not_fond(error):
-    return render_template("404.html"),404
+    return render_template("404.html"), 404
 
 #用下面的方法实现热加载,要实现热加载，就必须用Python test_flask.py dev 启动
 @manager.command
