@@ -3,14 +3,14 @@
 # createtime:  2017/11/20  11:08
 # IDE:         PyCharm
 # anthor:      ZT@gufan
-
-from app import create_app
+from flask import current_app
+from flask_migrate import Migrate, MigrateCommand, upgrade  # 加入脚本处理db迁移插件
 from flask_script import Manager
 from livereload import Server
-from flask_migrate import Migrate,MigrateCommand,upgrade #加入脚本处理db迁移插件
-from app.models import User, Role #这里一定要引入模型，不然脚本会检测不到DB变化
 
-app,db=create_app()
+from app import create_app,db
+
+app=create_app()
 
 manager=Manager(app)
 
@@ -19,6 +19,8 @@ manager.add_command("db",MigrateCommand)
 
 @manager.command
 def dev():
+    with app.app_context():
+        current_app.count=0
     app.config.debug=True
     live_server = Server(app.wsgi_app)
     # 监控文件变化参数是目录e.g:监控static文件夹  static/*.*

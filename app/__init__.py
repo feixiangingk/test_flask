@@ -4,20 +4,22 @@
 # IDE:         PyCharm
 # anthor:      ZT@gufan
 import os
+
+from flask import Flask
 from flask_bootstrap import Bootstrap  # 引用bootstrap
 from flask_nav import Nav  # 使用导航栏需要引入这两个包
 from flask_nav.elements import *
-from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from views import init_views
+
+# from app.main.views import init_views  #使用蓝图替换
 
 
 nav=Nav()  #注册导航栏
 nav.register_element('top',Navbar(u"Flask基础",
-                                  View(u'主页','index_demo'),
-                                  View(u'重定向','Testredirect'),
-                                  View(u'测试函数','index'),
-                                  View(u'登录','login')))
+                                  View(u'主页','main.index_demo'),
+                                  View(u'重定向','auth.Testredirect'),
+                                  View(u'测试函数','main.index'),
+                                  View(u'登录','auth.login')))
 
 db=SQLAlchemy()
 bootstrap=Bootstrap()
@@ -33,8 +35,12 @@ def create_app():
     nav.init_app(app)
     bootstrap.init_app(app)
     db.init_app(app)
-    init_views(app)
-    return app,db
+    # init_views(app)
+    from auth import auth as auth_blueprint
+    from main import main as main_blueprint
+    app.register_blueprint(auth_blueprint,url_prefix="/auth")
+    app.register_blueprint(main_blueprint)
+    return app
 
 
 if __name__=="__main__":

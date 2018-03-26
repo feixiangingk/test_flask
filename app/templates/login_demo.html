@@ -6,6 +6,13 @@
 {#        <div class="col-sm-3">#}
 {#        {{ wtf.quick_form(form) }}#}
 {#            </div>#}
+
+        <div class="container ">
+            {% for message in get_flashed_messages() %}
+                <div class="alert-info">{{ message }}</div>
+            {% endfor %}
+        </div>
+
     <form  method="post">
     {{ form.username.label }}<br>
     {{ form.username(class="input-sm", placeholder="用户名")  }}<br>
