@@ -4,7 +4,7 @@
 # IDE:         PyCharm
 # anthor:      ZT@gufan
 
-from . import create_app,db
+from app import create_app,db
 
 class Role(db.Model):
     __tablename__="roles"
