@@ -11,8 +11,9 @@ from .import main
 #     #显式调用current_app  设置count属性，初始值=0
 
 
-@main.route("/index_demo")
+@main.route("/index_demo",endpoint="index_demo") #由于使用蓝图模式，这里的endpoint还是会自动变成mian.index_demo
 def index_demo():
+    print "index_demo endpoint:",request.endpoint
     return render_template("index_demo.html")
 
 @main.route("/bootstrap")
@@ -21,6 +22,7 @@ def bootstrap():
 
 @main.route("/")
 def index():
+    print "index_demo /:", request.endpoint
     user_agent=request.headers.get("User-Agent")
     print current_app.name #显示test_SQLAlchemy因为程序实例化在该模块
     current_app.count+=1

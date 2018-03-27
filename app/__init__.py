@@ -17,7 +17,7 @@ from flask_sqlalchemy import SQLAlchemy
 nav=Nav()  #注册导航栏
 nav.register_element('top',Navbar(u"Flask基础",
                                   View(u'主页','main.index_demo'),
-                                  View(u'重定向','auth.Testredirect'),
+                                  View(u'注册','auth.register'),
                                   View(u'测试函数','main.index'),
                                   View(u'登录','auth.login')))
 
@@ -28,9 +28,11 @@ bootstrap=Bootstrap()
 
 def create_app():
     basedir = os.path.abspath(os.path.dirname(__file__))
+    print basedir
     app = Flask(__name__)
     app.config.from_pyfile('settings.py')  # 先使用from_pyfile()方法，不然后面的会被覆盖
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+    print app.config['SQLALCHEMY_DATABASE_URI']
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     nav.init_app(app)
     bootstrap.init_app(app)

@@ -7,13 +7,11 @@ from flask import current_app
 from flask_migrate import Migrate, MigrateCommand, upgrade  # 加入脚本处理db迁移插件
 from flask_script import Manager
 from livereload import Server
-
 from app import create_app,db
+from app.models import User,Role
 
 app=create_app()
-
 manager=Manager(app)
-
 migrate=Migrate(app,db)
 manager.add_command("db",MigrateCommand)
 

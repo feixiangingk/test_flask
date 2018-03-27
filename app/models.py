@@ -19,6 +19,7 @@ class User(db.Model):
     __tablename__="users"
     id=db.Column(db.Integer,primary_key=True)
     name=db.Column(db.String(64),unique=False,nullable=True)
+    email=db.Column(db.String(40),unique=True,nullable=True)
     password=db.Column(db.String(20),nullable=True)
     role_id=db.Column(db.Integer,db.ForeignKey("roles.id"))
 
