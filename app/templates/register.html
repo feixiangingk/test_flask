@@ -4,11 +4,12 @@
 {% block content %}
     <P class="H3">注册页面</P>
 
-    <div class="container">
-    {% for message in get_flashed_messages() %}
-    <div class="alert">{{ message }}</div>
-    {% endfor %}
-    </div>
+{#    <div class="container">#}
+{#    {% for message in get_flashed_messages() %}#}
+{#    <div class="alert">{{ message }}</div>#}
+{#    {% endfor %}#}
+{#    </div>#}
+
     <div class="container">
     {{ wtf.quick_form(form) }}
     </div>

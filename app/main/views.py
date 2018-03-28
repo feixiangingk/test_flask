@@ -16,6 +16,11 @@ def index_demo():
     print "index_demo endpoint:",request.endpoint
     return render_template("index_demo.html")
 
+@main.app_template_test("current_link")
+def is_current_link(link):
+    return link == request.path
+
+
 @main.route("/bootstrap")
 def bootstrap():
     return render_template("bootstrap_a.html")

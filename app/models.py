@@ -4,7 +4,8 @@
 # IDE:         PyCharm
 # anthor:      ZT@gufan
 
-from . import create_app,db
+from . import create_app,db,loginManager
+from flask_login import UserMixin #是用flask_login插件需要让用户继承它
 
 class Role(db.Model):
     __tablename__="roles"
@@ -24,7 +25,7 @@ class Role(db.Model):
     def __repr__(self):
         return "<Role {}>".format(self.name)
 
-class User(db.Model):
+class User(UserMixin,db.Model):
     __tablename__="users"
     id=db.Column(db.Integer,primary_key=True)
     name=db.Column(db.String(64),unique=False,nullable=True)
@@ -38,6 +39,12 @@ class User(db.Model):
     @staticmethod
     def on_created(target, value,oldvalue, initiator):
         target.role_id=Role.query.filter_by(name="Guests").first().id
+
+
+#该方法是flask_login必备方法
+@loginManager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 #SQLAlchemy触发器功能  http://docs.sqlalchemy.org/en/latest/orm/events.html
 db.event.listen(User.name,'set',User.on_created)

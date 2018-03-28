@@ -14,7 +14,8 @@
    {% block body %}
     {% block navbar %}
         {{ super() }}
-        {{ nav.top.render()}}
+    {% include 'includes/_navbar.html' %}
+{#        {{ nav.top.render()}}#}
     {% endblock navbar %} {# 这里使用flask_nav定义的导航栏 #}
 
     {% block content %}
