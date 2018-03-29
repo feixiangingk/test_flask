@@ -14,3 +14,7 @@ class PostForm(FlaskForm):
     title=StringField(label=u"标题",validators=[DataRequired()])
     body=PageDownField(label=u"正文",validators=[DataRequired()])
     submit=SubmitField(label=u"发表")
+
+class CommentForm(FlaskForm):
+    body=PageDownField(label=u"评论",validators=[DataRequired()])
+    submit=SubmitField(label=u"发表")
