@@ -23,14 +23,15 @@ def logout():
 def register():
     from .forms import RegisterForm
     registerForm=RegisterForm()
+
     if registerForm.validate_on_submit():
         user=User(name=registerForm.username.data,
                   email=registerForm.email.data,
                   password=registerForm.pwd.data)
         db.session.add(user)
         db.session.commit()
-        # flash(u"{} 注册成功!".format(registerForm.username.data))
         return redirect(url_for("auth.login",message=u"{} 注册成功".format(registerForm.username.data)))
+
     return render_template("register.html",title=u"注册",form=registerForm)
 
 
@@ -42,15 +43,15 @@ def login():
     loginForm = LoginForm()
     # if request.method == 'POST':
     #     flash(u'登录成功')
-    if request.args.get("message"):
-        flash(request.args.get("message"))
     if loginForm.validate_on_submit():
         user=User.query.filter_by(name=loginForm.username.data,password=loginForm.pwd.data).first()
         if user:
             login_user(user)
-            return redirect(url_for("main.index_demo",message=None)) #为了让客户post之后有一次get请求刷新
+            return redirect(url_for("main.index_demo",message=u"{} 登录成功".format(user.name))) #为了让客户post之后有一次get请求刷新
         else:
-            return render_template("login_demo.html", title=u"登录", form=loginForm, message=u"信息认证失败")
+            flash(u"信息认证失败")
+    if request.args.get("message"):
+        flash(request.args.get("message"))
     return render_template("login_demo.html", title=u"登录", form=loginForm)
 
 #重定向到百度首页

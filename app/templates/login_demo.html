@@ -1,22 +1,13 @@
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %} {# 使用wtf创建form #}
 {% block content %}
+    {{ super() }}
     <div class="container ">
-<p class="h3">login</p>
+    <p class="h3">login</p>
 {#        <div class="col-sm-3">#}
 {#        {{ wtf.quick_form(form) }}#}
 {#            </div>#}
-
-        <div class="container ">
-            {% for message in get_flashed_messages() %}
-            {% if loop.last %}
-            <div class="alert alert-info widt" style="width: 20%">
-        <button type="button" class="close" data-dismiss="alert">&boxtimes;</button>{{ message }}</div>
-                {% endif %}
-            {% endfor %}
-        </div>
-
-    <form  method="POST">
+    <form  class="form " method="POST">
    {{ form.csrf_token }}  {# 需要加上csrf保护#}
     {{ form.username.label }}<br>
     {{ form.username(class="input-sm", placeholder="用户名")  }}<br>

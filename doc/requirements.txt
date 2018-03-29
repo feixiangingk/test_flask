@@ -33,3 +33,5 @@ Flask-Bootstrap==3.3.7.1
 flask-nav==0.6
 flask-WTF==0.14.2
 flask-login==0.4.0
+flask-pagedown==0.2.2
+

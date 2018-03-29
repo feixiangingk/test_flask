@@ -14,6 +14,8 @@ from .import main
 @main.route("/index_demo",endpoint="index_demo") #由于使用蓝图模式，这里的endpoint还是会自动变成mian.index_demo
 def index_demo():
     print "index_demo endpoint:",request.endpoint
+    if request.args.get("message"):
+        flash(request.args.get("message"))
     return render_template("index_demo.html")
 
 @main.app_template_test("current_link")

@@ -6,9 +6,9 @@
     {% include 'includes/_head.html' %} {# 代表引用，复用_head.html 多个复用可以用[]#}
     {% endblock head %}
     {% block styles %}
-        {{ super() }}
+{#        {{ super() }}#}
     <link rel="stylesheet"
-           href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css">
+           href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/spacelab/bootstrap.min.css">
 {#    <link rel="stylesheet" href="{{ url_for("static",filename="site.css") }}">#}
     {% endblock styles %}
    {% block body %}
@@ -19,6 +19,23 @@
     {% endblock navbar %} {# 这里使用flask_nav定义的导航栏 #}
 
     {% block content %}
+{#              <div class="container ">#}
+{#            {% for message in get_flashed_messages() %}#}
+{#            {% if loop.last %}#}
+{#            <div class="alert alert-info widt" style="width: 20%">#}
+{#        <button type="button" class="close" data-dismiss="alert">&boxtimes;</button>{{ message }}</div>#}
+{#                {% endif %}#}
+{#            {% endfor %}#}
+{#        </div> #}
+        <div class="container">
+        {% for message in get_flashed_messages() %}
+            <div class="alert alert-info widt" style="width: 20%">
+                {{ message }}
+        <button type="button" class="close" data-dismiss="alert">&boxtimes;</button>
+                </div>
+        {% endfor %}
+        </div>
+
     {% endblock content%}
 
        <footer>
