@@ -55,9 +55,9 @@ db.event.listen(User.name,'set',User.on_created)
 class Post(db.Model):
     __tablename__="posts"
     id=db.Column(db.Integer,primary_key=True)
-    title=db.Column(db.String)
-    body=db.Column(db.String)
-    body_html=db.Column(db.String)
+    title=db.Column(db.String,nullable=False)
+    body=db.Column(db.String,nullable=False)
+    body_html=db.Column(db.String,nullable=False)
     created=db.Column(db.DateTime,index=True,default=datetime.datetime.utcnow)
 
     author_id=db.Column(db.Integer,db.ForeignKey("users.id")) #和User建立关系
@@ -72,6 +72,8 @@ class Post(db.Model):
         else:
             target.body_html=markdown(value)
 db.event.listen(Post.body,"set",Post.on_body_changed)
+
+
 
 class Comment(db.Model):
     __tablename__="comments"

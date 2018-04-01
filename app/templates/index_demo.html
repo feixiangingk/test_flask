@@ -3,7 +3,7 @@
 {% import 'includes/_macro.html' as ui %} {# 导入宏 #}
 
 
-{% block title %}Index Demo{% endblock title %}  {# 重写base中的block ,可以在endblock后面加上名字以区分 #}
+{% block title %}{{ title }}{% endblock title %}  {# 重写base中的block ,可以在endblock后面加上名字以区分 #}
 
 {# jinja2中的赋值语法#}
 {#{% set links=[#}
@@ -24,22 +24,31 @@
     {{ super() }}
 <div class="container">
 <p class="h7">{{ self.title() }}</p>
-<a class="h6 text-danger"  href="{{ url_for('main.index') }}">链接测试</a>
+{#<a class="h6 text-danger"  href="{{ url_for('main.index') }}">链接测试</a>#}
    </div>
 
-
-  <div class="input-group-btn">
-    <!-- Buttons -->
-  </div>
-        <div class="container">
-            <p class="h4">用户名</p>
-  <input type="text"  style="width:160px;line-height:50px;" class="form-control padding-base-horizontal" >
-    </div>
-
+{% block page_body %}
     <div class="container">
-    {{ ui.input("username") }} {# 使用宏 #}
-    {{ ui.input("pwd",type="password") }}
+    <a href="{{ url_for('main.edit')  }}" class="btn btn-primary">发表新文章</a>
     </div>
+    {% endblock page_body %}
+
+
+
+
+
+{#  <div class="input-group-btn">#}
+{#    <!-- Buttons -->#}
+{#  </div>#}
+{#        <div class="container">#}
+{#            <p class="h4">用户名</p>#}
+{#  <input type="text"  style="width:160px;line-height:50px;" class="form-control padding-base-horizontal" >#}
+{#    </div>#}
+{##}
+{#    <div class="container">#}
+{#    {{ ui.input("username") }} {# 使用宏 #}
+{#    {{ ui.input("pwd",type="password") }}#}
+{#    </div>#}
 
 
 

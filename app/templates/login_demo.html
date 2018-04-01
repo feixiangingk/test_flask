@@ -7,8 +7,8 @@
 {#        <div class="col-sm-3">#}
 {#        {{ wtf.quick_form(form) }}#}
 {#            </div>#}
-    <form  class="form " method="POST">
-   {{ form.csrf_token }}  {# 需要加上csrf保护#}
+    <form  class="form" method="post">
+    {{ form.csrf_token }}  {# 需要加上csrf保护#}
     {{ form.username.label }}<br>
     {{ form.username(class="input-sm", placeholder="用户名")  }}<br>
     {{ form.pwd.label }}<br>

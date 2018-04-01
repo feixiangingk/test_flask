@@ -11,6 +11,7 @@ from flask_nav import Nav  # 使用导航栏需要引入这两个包
 from flask_nav.elements import *
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager #用户登录组件
+from flask_pagedown import PageDown
 
 # from app.main.views import init_views  #使用蓝图替换
 
@@ -26,6 +27,7 @@ from flask_login import LoginManager #用户登录组件
 db=SQLAlchemy()
 bootstrap=Bootstrap()
 loginManager=LoginManager()
+pageDown=PageDown()
 loginManager.session_protection="strong"
 loginManager.login_view="auth.login"
 
@@ -40,6 +42,7 @@ def create_app():
     # nav.init_app(app)
     bootstrap.init_app(app)
     db.init_app(app)
+    pageDown.init_app(app)
     loginManager.init_app(app)
     # init_views(app)
     from auth import auth as auth_blueprint
