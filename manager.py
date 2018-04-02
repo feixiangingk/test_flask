@@ -17,7 +17,6 @@ manager.add_command("db",MigrateCommand)
 
 @manager.command
 def dev():
-
     app.config.debug=True
     live_server = Server(app.wsgi_app)
     # 监控文件变化参数是目录e.g:监控static文件夹  static/*.*
