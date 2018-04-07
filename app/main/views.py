@@ -54,7 +54,7 @@ def count():
 #专门处理错误页的路由，需要指定错误码 使用该装饰器errorhandler
 # @main.errorhandler(404) #这是普通app的使用方法
 @main.app_errorhandler(404)#蓝图自定义错误使用方法
-def page_not_fond(error):
+def page_not_found(error):
     return render_template("404.html",title=u"404页面不存在"),404
 
 @main.route("/posts/<int:id>",methods=['GET','POST'])
@@ -78,7 +78,7 @@ def post(id):
     #评论列表
     return  render_template("posts/detail.html",title=post.title,form=form,post=post)
 
-@main.route("/edit",methods=['GET','POST'])
+# @main.route("/edit",methods=['GET','POST'])
 @main.route("/edit/<int:id>",methods=['GET','POST'])
 @login_required
 def edit(id=0):
@@ -103,4 +103,16 @@ def edit(id=0):
         return  redirect(url_for("main.post",id=post.id))
     return render_template("posts/edit.html",form=form,post=post,title=post.title)
 
-
+@main.route("/create",methods=['GET','POST'])
+def create_post():
+    # post = Post(author=current_user)
+    form = PostForm()
+    if form.validate_on_submit():
+        post=Post(title=form.title.data,body=form.body.data,author_id=current_user)
+        # post.body = form.body.data
+        # post.title = form.title.data
+        db.session.add(post)
+        db.session.commit()
+        return redirect(url_for("main.post", id=post.id))
+    else:
+        return render_template("posts/edit.html",form=form)

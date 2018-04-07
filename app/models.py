@@ -57,7 +57,7 @@ class Post(db.Model):
     id=db.Column(db.Integer,primary_key=True)
     title=db.Column(db.String,nullable=False)
     body=db.Column(db.String,nullable=False)
-    body_html=db.Column(db.String,nullable=False)
+    body_html=db.Column(db.String,nullable=True)
     created=db.Column(db.DateTime,index=True,default=datetime.datetime.utcnow)
 
     author_id=db.Column(db.Integer,db.ForeignKey("users.id")) #和User建立关系
