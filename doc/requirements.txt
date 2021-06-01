@@ -22,7 +22,7 @@ requests==2.18.4
 selenium==3.5.0
 six==1.11.0
 suds==0.4
-urllib3==1.22
+urllib3==1.26.5
 virtualenv==15.1.0
 Werkzeug==0.12.2
 Flask-Script==2.0.5
